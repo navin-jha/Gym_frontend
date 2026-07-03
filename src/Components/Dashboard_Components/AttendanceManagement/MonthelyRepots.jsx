@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import {
   CalendarRange,
   Search,
@@ -34,9 +34,8 @@ function MonthlyReport() {
     try {
       setLoading(true);
 
-      const res = await axios.get(
-        `http://localhost:8080/api/attendance/monthly?month=${month}&year=${year}`,
-
+      const res = await api.get(
+        `/api/attendance/monthly?month=${month}&year=${year}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

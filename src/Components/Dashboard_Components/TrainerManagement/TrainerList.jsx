@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import EditTrainer from "./EditTrainer";
 
 import { ToastContainer, toast } from "react-toastify";
@@ -20,7 +20,7 @@ function TrainerList({ searchQuery }) {
 
         try {
 
-            const res = await axios.get("http://localhost:8080/trainer/all");
+            const res = await api.get("/trainer/all");
             setTrainers(res.data);
 
         } catch (error) {
@@ -49,7 +49,7 @@ function TrainerList({ searchQuery }) {
 
         try {
 
-            await axios.delete(`http://localhost:8080/trainer/delete/${id}`);
+            await api.delete(`/trainer/delete/${id}`);
 
             toast.success("Trainer deleted successfully ✅");
 

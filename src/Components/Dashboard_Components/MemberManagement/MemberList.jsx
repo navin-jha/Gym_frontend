@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -11,9 +11,9 @@ function MemberList({ onEdit, refresh, searchName }) {
         try {
             let res;
             if (searchName && searchName.trim() !== "") {
-                res = await axios.get(`http://localhost:8080/member/search?name=${searchName}`);
+                res = await api.get(`/member/search?name=${searchName}`);
             } else {
-                res = await axios.get("http://localhost:8080/member/all");
+                res = await api.get("/member/all");
                 res.data = res.data.slice(0, 8); // limit first 8
             }
             setMembers(res.data);
@@ -29,7 +29,7 @@ function MemberList({ onEdit, refresh, searchName }) {
 
     const deleteMember = async (id) => {
         try {
-            await axios.delete(`http://localhost:8080/member/delete/${id}`);
+            await api.delete(`/member/delete/${id}`);
             toast.success("Member deleted successfully ✅");
             fetchMembers();
         } catch (err) {
@@ -40,7 +40,7 @@ function MemberList({ onEdit, refresh, searchName }) {
 
     const freezeMembership = async (id) => {
         try {
-            await axios.put(`http://localhost:8080/member/freeze/${id}`);
+            await api.put(`/member/freeze/${id}`);
             toast.success("Membership frozen ✅");
             fetchMembers();
         } catch (err) {
@@ -51,7 +51,7 @@ function MemberList({ onEdit, refresh, searchName }) {
 
     const renewMembership = async (id) => {
         try {
-            await axios.put(`http://localhost:8080/member/renew/${id}`);
+            await api.put(`/member/renew/${id}`);
             toast.success("Membership renewed ✅");
             fetchMembers();
         } catch (err) {

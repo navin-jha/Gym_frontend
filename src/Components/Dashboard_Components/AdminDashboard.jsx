@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../services/axiosConfig";
 
 const AdminDashboard = () => {
     const [stats, setStats] = useState(null);
@@ -20,8 +20,8 @@ const AdminDashboard = () => {
 
         // ✅ 2. Only fetch stats if ADMIN
         if (storedUser.role === "ADMIN" && storedUser.token) {
-            axios
-                .get("http://localhost:8080/api/dashboard/stats", {
+            api
+                .get("/api/dashboard/stats", {
                     headers: { Authorization: `Bearer ${storedUser.token}` },
                 })
                 .then((res) => {

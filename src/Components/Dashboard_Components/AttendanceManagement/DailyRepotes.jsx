@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import {
   CalendarDays,
   Search,
@@ -31,9 +31,8 @@ function DailyReport() {
     try {
       setLoading(true);
 
-      const res = await axios.get(
-        `http://localhost:8080/api/attendance/daily?date=${date}`,
-
+      const res = await api.get(
+        `/api/attendance/daily?date=${date}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

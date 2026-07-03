@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import { toast } from "react-toastify";
 
 function EditMember({ member, onSuccess }) {
@@ -17,8 +17,8 @@ function EditMember({ member, onSuccess }) {
 
         try {
 
-            await axios.put(
-                `http://localhost:8080/member/update/${member.id}`,
+            await api.put(
+                `/member/update/${member.id}`,
                 formData
             );
 

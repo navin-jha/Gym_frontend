@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import { Plus } from "lucide-react";
 
 import { toast } from "react-toastify";
@@ -35,7 +35,7 @@ function AddTrainer() {
 
         try {
 
-            await axios.post("http://localhost:8080/trainer/add", trainer);
+            await api.post("/trainer/add", trainer);
 
             toast.success("Trainer added successfully ✅");
 

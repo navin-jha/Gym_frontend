@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { jsPDF } from "jspdf";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import "react-toastify/dist/ReactToastify.css";
 
 function BillGenerater({ userData, selectedPlan }) {
@@ -44,8 +44,8 @@ function BillGenerater({ userData, selectedPlan }) {
         if (!memberId) return;
 
         try {
-            await axios.post(
-                `http://localhost:8080/plans/member/${memberId}`,
+            await api.post(
+                `/plans/member/${memberId}`,
                 {
                     planName: selectedPlan?.planName,
                     price: selectedPlan?.finalPrice,

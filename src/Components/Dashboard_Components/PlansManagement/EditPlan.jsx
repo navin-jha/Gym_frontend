@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -26,8 +26,8 @@ function EditPlan({ planId, onUpdate }) {
     // 🔥 FETCH PLAN
     const fetchPlan = async () => {
         try {
-            const response = await axios.get(
-                `http://localhost:8080/plans/${planId}`,
+            const response = await api.get(
+                `/plans/${planId}`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -78,8 +78,8 @@ function EditPlan({ planId, onUpdate }) {
                 active: plan.active
             };
 
-            await axios.put(
-                `http://localhost:8080/plans/${planId}`,
+            await api.put(
+                `/plans/${planId}`,
                 payload,
                 {
                     headers: {

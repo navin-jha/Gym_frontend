@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -46,7 +46,7 @@ function AddPlan({ onClose, onSuccess }) {
         active: formData.active,
       };
 
-      await axios.post("http://localhost:8080/plans", payload, {
+      await api.post("/plans", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",

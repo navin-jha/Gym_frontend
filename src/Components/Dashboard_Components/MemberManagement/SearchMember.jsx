@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import { toast } from "react-toastify";
 import { Search } from "lucide-react";
 
@@ -12,7 +12,7 @@ function SearchMember({ onEdit, refresh }) {
 
         try {
 
-            const res = await axios.get("http://localhost:8080/member/all");
+            const res = await api.get("/member/all");
 
             setMembers(res.data.slice(0, 5)); // dashboard pe top 5
 
@@ -44,8 +44,8 @@ function SearchMember({ onEdit, refresh }) {
 
             try {
 
-                const res = await axios.get(
-                    `http://localhost:8080/member/search?name=${searchName}`
+                const res = await api.get(
+                    `/member/search?name=${searchName}`
                 );
 
                 setMembers(res.data);

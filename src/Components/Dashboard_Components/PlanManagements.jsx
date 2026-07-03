@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AddPlan from "./PlansManagement/AddPlan";
 import EditPlan from "./PlansManagement/EditPlan";
-import axios from "axios";
+import api from "../../services/axiosConfig";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,7 +18,7 @@ function PlanManagements() {
 
     const fetchPlans = async () => {
         try {
-            const res = await axios.get("http://localhost:8080/plans");
+            const res = await api.get("/plans");
 
             const fixedPlans = (res.data || []).map(plan => ({
                 ...plan,
@@ -34,7 +34,7 @@ function PlanManagements() {
 
     const toggleStatus = async (id, currentStatus) => {
         try {
-            await axios.put(`http://localhost:8080/plans/${id}/status`, {
+            await api.put(`/plans/${id}/status`, {
                 active: !currentStatus
             });
 
@@ -58,7 +58,7 @@ function PlanManagements() {
 
     const handleConfirmDelete = async () => {
         try {
-            await axios.delete(`http://localhost:8080/plans/${planToDelete}`);
+            await api.delete(`/plans/${planToDelete}`);
             toast.success("Plan Deleted Successfully");
             fetchPlans();
         } catch (error) {

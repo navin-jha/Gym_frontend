@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -36,7 +36,7 @@ function AddMember() {
         }
 
         try {
-            await axios.post("http://localhost:8080/member/register", data);
+            await api.post("/member/register", data);
 
             toast.success("Member Added Successfully ✅"); // ✅ toaster message
         } catch (error) {

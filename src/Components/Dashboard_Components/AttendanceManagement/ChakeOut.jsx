@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import {
   UserRound,
   LogIn,
@@ -74,8 +74,8 @@ function CheckInOut() {
     try {
       setLoading(true);
 
-      await axios.post(
-        `http://localhost:8080/api/attendance/${type}?userId=${userId}`,
+      await api.post(
+        `/api/attendance/${type}?userId=${userId}`,
         {},
         {
           headers: {

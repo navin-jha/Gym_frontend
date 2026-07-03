@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../services/axiosConfig";
 import jsPDF from "jspdf";
 
 const PaymentManagement = () => {
@@ -42,17 +42,17 @@ const PaymentManagement = () => {
   }, []);
 
   const fetchMembers = async () => {
-    const res = await axios.get("http://localhost:8080/member/all");
+    const res = await api.get("/member/all");
     setMembers(res.data);
   };
 
   const fetchPlans = async () => {
-    const res = await axios.get("http://localhost:8080/plans");
+    const res = await api.get("/plans");
     setPlans(res.data);
   };
 
   const fetchPayments = async () => {
-    const res = await axios.get("http://localhost:8080/payment");
+    const res = await api.get("/payment");
     setPayments(res.data);
   };
 
@@ -89,7 +89,7 @@ const PaymentManagement = () => {
     };
 
     try {
-      await axios.post("http://localhost:8080/payment", payload);
+      await api.post("/payment", payload);
       alert("Payment Saved ✅");
 
       fetchPayments();

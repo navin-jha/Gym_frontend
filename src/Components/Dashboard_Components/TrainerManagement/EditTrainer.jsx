@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -35,8 +35,8 @@ function EditTrainer({ trainer, onUpdate, onCancel }) {
 
         try {
 
-            await axios.put(
-                `http://localhost:8080/trainer/update/${trainer.trainerId}`,
+            await api.put(
+                `/trainer/update/${trainer.trainerId}`,
                 formData
             );
 

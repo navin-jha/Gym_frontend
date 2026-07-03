@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../../services/axiosConfig";
 
 import {
   User,
@@ -85,8 +85,8 @@ function RegisterPage({ redirectPath = "/dashboard" }) {
         data.append(key, formData[key]);
       });
 
-      const response = await axios.post(
-        "http://localhost:8080/member/register",
+      const response = await api.post(
+        "/member/register",
         data,
         {
           headers: {

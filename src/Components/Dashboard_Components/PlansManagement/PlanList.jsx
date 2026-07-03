@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../../services/axiosConfig";
 import EditPlan from "./EditPlan";
 
 import { toast, ToastContainer } from "react-toastify";
@@ -20,7 +20,7 @@ function PlanList() {
 
         try {
 
-            const res = await axios.get("http://localhost:8080/plans", {
+            const res = await api.get("/plans", {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -47,7 +47,7 @@ function PlanList() {
 
         try {
 
-            await axios.delete(`http://localhost:8080/plans/${id}`, {
+            await api.delete(`/plans/${id}`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
