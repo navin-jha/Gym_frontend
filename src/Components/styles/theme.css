@@ -1,0 +1,23 @@
+.page {
+    @apply min-h-screen bg-background;
+}
+
+.card {
+    @apply bg-card rounded-card shadow-card border border-border;
+}
+
+.input {
+    @apply w-full rounded-input border border-border px-4 py-3 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-blue-200;
+}
+
+.label {
+    @apply mb-2 block text-sm font-semibold text-heading;
+}
+
+.button-primary {
+    @apply rounded-button bg-primary text-white font-semibold px-5 py-3 hover:bg-secondary transition-all;
+}
+
+.button-secondary {
+    @apply rounded-button border border-border bg-white text-heading hover:bg-slate-100 px-5 py-3 transition-all;
+}

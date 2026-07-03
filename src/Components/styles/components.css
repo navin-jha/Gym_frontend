@@ -1,0 +1,125 @@
+@layer components {
+
+    /* ================= INPUT ================= */
+
+    .input {
+
+        @apply w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm outline-none transition-all duration-200 focus:border-blue-600 focus:ring-4 focus:ring-blue-100;
+
+    }
+
+    .input-icon {
+
+        @apply pl-11;
+
+    }
+
+    .textarea {
+
+        @apply input resize-none;
+
+    }
+
+    .select {
+
+        @apply input appearance-none;
+
+    }
+
+    /* ================= ICON ================= */
+
+    .input-wrapper {
+
+        @apply relative;
+
+    }
+
+    .input-icon-left {
+
+        @apply absolute left-4 top-1/2 -translate-y-1/2 text-slate-400;
+
+    }
+
+    .textarea-icon {
+
+        @apply absolute left-4 top-4 text-slate-400;
+
+    }
+
+    /* ================= BUTTON ================= */
+
+    .btn {
+
+        @apply inline-flex items-center justify-center rounded-xl px-5 py-3 font-semibold transition-all duration-300;
+
+    }
+
+    .btn-primary {
+
+        @apply btn bg-blue-600 text-white hover:bg-blue-700 shadow-sm hover:shadow-md;
+
+    }
+
+    .btn-secondary {
+
+        @apply btn border border-slate-300 bg-white text-slate-700 hover:bg-slate-100;
+
+    }
+
+    .btn-danger {
+
+        @apply btn bg-red-600 text-white hover:bg-red-700;
+
+    }
+
+    /* ================= PROFILE ================= */
+
+    .avatar-upload {
+
+        @apply w-32 h-32 md:w-40 md:h-40 rounded-full border-[3px] border-dashed border-blue-300 bg-slate-50 shadow overflow-hidden flex items-center justify-center;
+
+    }
+
+    .avatar-button {
+
+        @apply absolute bottom-1 right-1 w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center shadow-lg;
+
+    }
+
+    /* ================= ALERT ================= */
+
+    .alert-error {
+
+        @apply rounded-xl border border-red-200 bg-red-50 text-red-600 px-4 py-3 text-sm;
+
+    }
+
+    .alert-success {
+
+        @apply rounded-xl border border-green-200 bg-green-50 text-green-600 px-4 py-3 text-sm;
+
+    }
+
+    /* ================= BADGE ================= */
+
+    .badge {
+
+        @apply inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700;
+
+    }
+
+    /* ================= RESPONSIVE ================= */
+
+    .mobile-stack {
+
+        @apply flex flex-col md:flex-row gap-4;
+
+    }
+
+    .center {
+
+        @apply flex items-center justify-center;
+
+    }
+
+}
