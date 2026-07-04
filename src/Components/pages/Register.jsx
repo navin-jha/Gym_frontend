@@ -11,9 +11,7 @@ function Register() {
   useEffect(() => {
     if (isLoggedIn) {
       const role = sessionStorage.getItem("role");
-      if (role === "ADMIN") navigate("/dashboard");
-      else if (role === "STAFF") navigate("/staff-dashboard");
-      else if (role === "TRAINER") navigate("/trainer-dashboard");
+      if (role === "ADMIN" || role === "STAFF" || role === "TRAINER") navigate("/dashboard");
     }
   }, [isLoggedIn, navigate]);
 
@@ -48,16 +46,16 @@ function Register() {
       });
 
       if (res.data.success) {
-        toast.success("Registration Successful! Please login.");
+        sessionStorage.setItem("token", res.data.token);
+        sessionStorage.setItem("role", res.data.role);
+
+        toast.success("Registration Successful!");
 
         setTimeout(() => {
-          navigate("/Dashboard");
+          navigate("/dashboard");
         }, 1000);
-      } else {
-        toast.error(res.data.message || "User already exists!");
       }
     } catch (err) {
-      console.error(err);
       toast.error(err.response?.data?.message || "Something went wrong!");
     } finally {
       setLoading(false);
@@ -69,7 +67,12 @@ function Register() {
       <ToastContainer
         position="top-right"
         autoClose={2000}
-        p-16
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
         theme="light"
       />
 

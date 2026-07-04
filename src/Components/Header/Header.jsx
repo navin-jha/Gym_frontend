@@ -17,7 +17,7 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
-  const isLoggedIn = sessionStorage.getItem("userLoggedIn");
+  const isLoggedIn = sessionStorage.getItem("token");
   const isDashboard = location.pathname.startsWith("/dashboard");
 
   useEffect(() => {
@@ -34,6 +34,16 @@ const Header = () => {
     sessionStorage.clear();
     navigate("/");
   };
+  const navLinks = [
+    {
+      name: "Login",
+      path: "/login",
+    },
+    {
+      name: "Register",
+      path: "/register",
+    },
+  ];
 
   return (
     <>
