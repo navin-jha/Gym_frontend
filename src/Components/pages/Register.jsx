@@ -4,14 +4,33 @@ import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { motion } from "framer-motion";
+
+import {
+  FaUser,
+  FaEnvelope,
+  FaLock,
+  FaEye,
+  FaEyeSlash,
+  FaUserShield,
+  FaDumbbell,
+  FaArrowRight,
+} from "react-icons/fa";
+
 function Register() {
   const navigate = useNavigate();
   const isLoggedIn = sessionStorage.getItem("token");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const REGISTER_IMAGE =
+    "https://res.cloudinary.com/dc62ucmsx/image/upload/v1783438893/loginImg_fwjmvr.png";
 
   useEffect(() => {
     if (isLoggedIn) {
       const role = sessionStorage.getItem("role");
-      if (role === "ADMIN" || role === "STAFF" || role === "TRAINER") navigate("/dashboard");
+      if (role === "ADMIN" || role === "STAFF" || role === "TRAINER")
+        navigate("/dashboard");
     }
   }, [isLoggedIn, navigate]);
 
@@ -64,174 +83,276 @@ function Register() {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
+      <ToastContainer position="top-right" autoClose={2000} theme="dark" />
 
-      <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-100 via-white to-indigo-50 flex items-center justify-center px-6 py-10">
-        {/* Background Blur */}
+      <div className="relative min-h-screen overflow-hidden bg-secondary">
+        {/* Background */}
+
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-24 -left-24 w-96 h-96 bg-sky-200/40 rounded-full blur-3xl"></div>
-          <div className="absolute top-20 right-0 w-[420px] h-[420px] bg-violet-200/40 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-1/3 w-[350px] h-[350px] bg-pink-200/30 rounded-full blur-3xl"></div>
+          <div className="absolute -top-40 -left-40 h-96 w-96 rounded-full bg-primary/20 blur-[140px]" />
+
+          <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-primary/10 blur-[120px]" />
         </div>
 
-        <div className="relative w-full max-w-6xl grid lg:grid-cols-2 rounded-[30px] overflow-hidden bg-white/80 backdrop-blur-xl shadow-[0_25px_70px_rgba(0,0,0,0.08)] border border-white">
-          {/* Left Side */}
+        <div className="relative z-10 flex min-h-screen items-center justify-center px-4 py-8 lg:px-8">
+          <div className="grid w-full max-w-7xl overflow-hidden rounded-[32px] border border-white/10 bg-white/5 backdrop-blur-xl shadow-modal lg:grid-cols-2">
+            {/* ================= LEFT ================= */}
 
-          <div className="hidden lg:flex flex-col justify-between p-14 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-            <div>
-              <span className="px-4 py-2 rounded-full bg-indigo-100 text-indigo-600 text-sm font-semibold">
-                GYM MANAGEMENT SYSTEM
-              </span>
+            <motion.div
+              initial={{ opacity: 0, x: -25 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              className="hidden lg:block p-6"
+            >
+              <div className="relative h-full overflow-hidden rounded-[28px] shadow-2xl">
+                {/* Image */}
 
-              <h1 className="mt-10 text-5xl font-extrabold text-slate-800 leading-tight">
-                Welcome
-                <br />
-                Back To
-                <br />
-                Success.
-              </h1>
+                <img
+                  src={REGISTER_IMAGE}
+                  alt="Gym"
+                  className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+                />
 
-              <p className="mt-6 text-slate-500 leading-8 text-lg">
-                Manage Members, Trainers, Attendance, Payments and Reports from
-                one beautiful dashboard.
-              </p>
-            </div>
+                {/* Overlay */}
 
-            <div className="grid grid-cols-2 gap-5">
-              <div className="rounded-2xl bg-white p-6 shadow-md border border-slate-100">
-                <h2 className="text-3xl font-bold text-indigo-600">500+</h2>
-                <p className="mt-2 text-slate-500">Active Members</p>
-              </div>
+                <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/25 to-transparent" />
 
-              <div className="rounded-2xl bg-white p-6 shadow-md border border-slate-100">
-                <h2 className="text-3xl font-bold text-indigo-600">24/7</h2>
-                <p className="mt-2 text-slate-500">Cloud Access</p>
-              </div>
-            </div>
-          </div>
+                <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-          {/* Right */}
+                {/* Content */}
+                <div className="absolute bottom-10 left-10 right-10">
+                  {/* Bottom Feature */}
 
-          <div className="bg-white p-10 sm:p-14">
-            <div className="max-w-md mx-auto">
-              <div className="text-center">
-                <div className="mx-auto w-20 h-20 rounded-3xl bg-gradient-to-r from-indigo-500 to-sky-500 flex items-center justify-center text-white text-4xl shadow-lg">
-                  🚀
-                </div>
+                  <div className="mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-md">
+                    <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                      <FaDumbbell className="text-xl text-primary" />
+                    </div>
 
-                <h2 className="mt-6 text-4xl font-bold text-slate-800">
-                  Create Account
-                </h2>
+                    <div>
+                      <h3 className="font-semibold text-white">
+                        Premium Gym Management
+                      </h3>
 
-                <p className="mt-3 text-slate-500">
-                  Register your account to continue.
-                </p>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-5 mt-10">
-                <div>
-                  <label className="text-sm font-medium text-slate-600">
-                    Full Name
-                  </label>
-
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="John Doe"
-                    className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-5 py-3.5 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-sm font-medium text-slate-600">
-                    Email
-                  </label>
-
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="example@gmail.com"
-                    className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-5 py-3.5 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
-                  />
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">
-                      Password
-                    </label>
-
-                    <input
-                      type="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      placeholder="********"
-                      className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-5 py-3.5 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
-                    />
+                      <p className="text-sm text-slate-300">
+                        Simple • Secure • Fast
+                      </p>
+                    </div>
                   </div>
+                </div>
+              </div>
+            </motion.div>
 
-                  <div>
-                    <label className="text-sm font-medium text-slate-600">
-                      Confirm Password
-                    </label>
+            {/* ================= MOBILE IMAGE ================= */}
 
-                    <input
-                      type="password"
-                      value={confirmPassword}
-                      onChange={(e) => setConfirmPassword(e.target.value)}
-                      placeholder="********"
-                      className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-5 py-3.5 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
-                    />
+            <div className="relative h-64 lg:hidden">
+              <img
+                src={REGISTER_IMAGE}
+                alt="Gym"
+                className="h-full w-full object-cover"
+              />
+
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
+
+              <div className="absolute bottom-6 left-6">
+                <h2 className="text-3xl font-black text-white">Gym Pro ERP</h2>
+
+                <p className="mt-2 text-slate-300">Create Your Account</p>
+              </div>
+            </div>
+
+            {/* ================= RIGHT ================= */}
+
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.7 }}
+              className="flex items-center justify-center p-6 sm:p-10 lg:p-14"
+            >
+              <div className="w-full max-w-md">
+                <div className="mb-8 flex justify-center">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-r from-primary to-primaryDark shadow-[0_12px_35px_rgba(37,99,235,.35)]">
+                    <FaDumbbell className="text-4xl text-white" />
                   </div>
                 </div>
 
-                <div>
-                  <label className="text-sm font-medium text-slate-600">
-                    Select Role
-                  </label>
+                <div className="text-center">
+                  <h2 className="text-4xl font-black text-white">
+                    Create Account
+                  </h2>
 
-                  <select
-                    value={role}
-                    onChange={(e) => setRole(e.target.value)}
-                    className="mt-2 w-full rounded-xl border border-slate-200 bg-slate-50 px-5 py-3.5 outline-none transition focus:border-indigo-400 focus:ring-4 focus:ring-indigo-100"
-                  >
-                    <option value="">Choose Role</option>
-                    <option value="ADMIN">Admin</option>
-                    <option value="STAFF">Staff</option>
-                    <option value="TRAINER">Trainer</option>
-                  </select>
+                  <p className="mt-3 text-slate-400">
+                    Register to continue your fitness journey.
+                  </p>
                 </div>
 
-                <button
-                  disabled={loading}
-                  className="w-full py-4 rounded-xl bg-gradient-to-r from-indigo-500 to-sky-500 text-white font-semibold text-lg transition hover:shadow-xl hover:scale-[1.01]"
-                >
-                  {loading ? "Creating Account..." : "Create Account"}
-                </button>
-              </form>
+                <div className="mt-10 rounded-[28px] border border-white/10 bg-white/10 p-7 backdrop-blur-xl">
+                  <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* ================= NAME ================= */}
 
-              <p className="mt-8 text-center text-slate-500">
-                Already have an account?
-                <Link
-                  to="/login"
-                  className="ml-2 text-indigo-600 font-semibold hover:underline"
-                >
-                  Login
-                </Link>
-              </p>
-            </div>
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-slate-300">
+                        Full Name
+                      </label>
+
+                      <div className="relative">
+                        <FaUser className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
+
+                        <input
+                          type="text"
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
+                          placeholder="John Doe"
+                          className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-14 pr-5 text-white placeholder:text-slate-500 outline-none transition-all duration-300 focus:border-primary focus:bg-white/10 focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
+                    </div>
+
+                    {/* ================= EMAIL ================= */}
+
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-slate-300">
+                        Email Address
+                      </label>
+
+                      <div className="relative">
+                        <FaEnvelope className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
+
+                        <input
+                          type="email"
+                          value={email}
+                          onChange={(e) => setEmail(e.target.value)}
+                          placeholder="example@gmail.com"
+                          className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-14 pr-5 text-white placeholder:text-slate-500 outline-none transition-all duration-300 focus:border-primary focus:bg-white/10 focus:ring-2 focus:ring-primary/20"
+                        />
+                      </div>
+                    </div>
+
+                    {/* ================= PASSWORD ================= */}
+
+                    <div className="grid gap-5 md:grid-cols-2">
+                      {/* Password */}
+
+                      <div>
+                        <label className="mb-2 block text-sm font-medium text-slate-300">
+                          Password
+                        </label>
+
+                        <div className="relative">
+                          <FaLock className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
+
+                          <input
+                            type={showPassword ? "text" : "password"}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="********"
+                            className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-14 pr-14 text-white placeholder:text-slate-500 outline-none transition-all duration-300 focus:border-primary focus:bg-white/10 focus:ring-2 focus:ring-primary/20"
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() => setShowPassword(!showPassword)}
+                            className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary"
+                          >
+                            {showPassword ? <FaEyeSlash /> : <FaEye />}
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Confirm Password */}
+
+                      <div>
+                        <label className="mb-2 block text-sm font-medium text-slate-300">
+                          Confirm Password
+                        </label>
+
+                        <div className="relative">
+                          <FaLock className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
+
+                          <input
+                            type={showConfirmPassword ? "text" : "password"}
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                            placeholder="********"
+                            className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-14 pr-14 text-white placeholder:text-slate-500 outline-none transition-all duration-300 focus:border-primary focus:bg-white/10 focus:ring-2 focus:ring-primary/20"
+                          />
+
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setShowConfirmPassword(!showConfirmPassword)
+                            }
+                            className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary"
+                          >
+                            {showConfirmPassword ? <FaEyeSlash /> : <FaEye />}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* ================= ROLE ================= */}
+
+                    <div>
+                      <label className="mb-2 block text-sm font-medium text-slate-300">
+                        Select Role
+                      </label>
+
+                      <div className="relative">
+                        <FaUserShield className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
+
+                        <select
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                          className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-14 pr-5 text-white outline-none transition-all duration-300 focus:border-primary focus:bg-white/10 focus:ring-2 focus:ring-primary/20"
+                        >
+                          <option className="bg-slate-900" value="">
+                            Choose Role
+                          </option>
+
+                          <option className="bg-slate-900" value="ADMIN">
+                            Admin
+                          </option>
+
+                          <option className="bg-slate-900" value="STAFF">
+                            Staff
+                          </option>
+
+                          <option className="bg-slate-900" value="TRAINER">
+                            Trainer
+                          </option>
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* ================= BUTTON ================= */}
+
+                    <button
+                      type="submit"
+                      disabled={loading}
+                      className="mt-3 flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-primary to-primaryDark text-lg font-bold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_15px_40px_rgba(37,99,235,.35)] disabled:cursor-not-allowed disabled:opacity-70"
+                    >
+                      {loading ? (
+                        "Creating Account..."
+                      ) : (
+                        <>
+                          Create Account
+                          <FaArrowRight />
+                        </>
+                      )}
+                    </button>
+
+                    <p className="pt-3 text-center text-slate-400">
+                      Already have an account?
+                      <Link
+                        to="/login"
+                        className="ml-2 font-semibold text-primary hover:text-primaryDark"
+                      >
+                        Login
+                      </Link>
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </div>

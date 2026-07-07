@@ -4,6 +4,7 @@ import api from "../../services/axiosConfig";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 import { motion } from "framer-motion";
 
 import {
@@ -14,26 +15,28 @@ import {
   FaArrowRight,
   FaDumbbell,
   FaUsers,
-  FaChartLine,
   FaWallet,
+  FaChartLine,
 } from "react-icons/fa";
+
+const LOGIN_IMAGE =
+  "https://res.cloudinary.com/dc62ucmsx/image/upload/v1783438893/loginImg_fwjmvr.png";
 
 export default function Login() {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-
   const [password, setPassword] = useState("");
-
   const [showPassword, setShowPassword] = useState(false);
-
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("userLoggedIn")) {
       const role = sessionStorage.getItem("role");
 
-      if (role === "ADMIN" || role === "STAFF" || role === "Trainer") navigate("/dashboard");
+      if (role === "ADMIN" || role === "STAFF" || role === "TRAINER") {
+        navigate("/dashboard");
+      }
     }
   }, [navigate]);
 
@@ -42,7 +45,6 @@ export default function Login() {
 
     if (!email || !password) {
       toast.error("Please enter both email and password!");
-
       return;
     }
 
@@ -58,19 +60,13 @@ export default function Login() {
         sessionStorage.setItem("token", res.data.token);
         sessionStorage.setItem("email", res.data.email);
         sessionStorage.setItem("name", res.data.name);
-        sessionStorage.setItem("userLoggedIn", "true");
         sessionStorage.setItem("role", res.data.role);
+        sessionStorage.setItem("userLoggedIn", "true");
 
         toast.success("Login Successful");
 
         setTimeout(() => {
-          if (
-            res.data.role === "ADMIN" ||
-            res.data.role === "STAFF" ||
-            res.data.role === "TRAINER"
-          ) {
-            navigate("/dashboard");
-          }
+          navigate("/dashboard");
         }, 700);
       } else {
         toast.error("Invalid Credentials");
@@ -82,305 +78,282 @@ export default function Login() {
     }
   };
 
-  return (
-    <div className="relative min-h-screen overflow-hidden pt-4 pb-4 bg-[#0F172A]">
-      {/* Background */}
+ return (
+   <div className="relative min-h-screen overflow-hidden bg-[#0B1220]">
+     {/* Premium Background */}
 
-      <div className="absolute inset-0">
-        <div className="absolute top-0 left-0 w-[500px] h-[500px] rounded-full bg-orange-500/20 blur-[160px]" />
+     <div className="absolute inset-0">
+       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(37,99,235,0.14),transparent_35%)]" />
 
-        <div className="absolute bottom-0 right-0 w-[450px] h-[450px] rounded-full bg-red-500/20 blur-[160px]" />
+       <div className="absolute inset-0 bg-[radial-gradient(circle_at_bottom_right,rgba(37,99,235,0.10),transparent_40%)]" />
 
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] rounded-full bg-orange-400/10 blur-[180px]" />
-      </div>
+       <div className="absolute inset-0 bg-[linear-gradient(to_bottom,transparent,rgba(2,6,23,.35))]" />
+     </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto min-h-screen px-6 grid lg:grid-cols-2 items-center gap-20">
-        {/* LEFT SIDE */}
+     <div className="relative z-10 flex min-h-screen items-center justify-center px-5 py-8">
+       <div className="grid w-full max-w-7xl overflow-hidden rounded-[32px] border border-white/5 bg-[#111827]/70 backdrop-blur-2xl shadow-[0_20px_80px_rgba(0,0,0,.45)] lg:grid-cols-2">
+         {/* ================= LEFT ================= */}
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            x: -80,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.8,
-          }}
-          className="hidden lg:block"
-        >
-          <span className="px-5 py-2 rounded-full bg-orange-500/10 border border-orange-500/30 text-orange-300">
-            Premium Gym Management Software
-          </span>
+         <motion.div
+           initial={{ opacity: 0, x: -25 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ duration: 0.6 }}
+           className="hidden lg:block p-6"
+         >
+           <div className="relative h-full overflow-hidden rounded-[28px] shadow-2xl">
+             {/* Image */}
 
-          <h1 className="text-6xl font-black text-white mt-8 leading-tight">
-            Grow Your
-            <span className="block text-orange-500">Fitness Business</span>
-            Faster
-          </h1>
+             <img
+               src={LOGIN_IMAGE}
+               alt="Gym"
+               className="h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+             />
 
-          <p className="mt-8 text-gray-400 text-lg leading-8 max-w-xl">
-            Manage members, trainers, attendance, subscriptions and payments
-            from one beautiful dashboard.
-          </p>
+             {/* Overlay */}
 
-          {/* Floating Cards */}
+             <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/25 to-transparent" />
 
-          <div className="grid grid-cols-2 gap-6 mt-14">
-            <motion.div
-              animate={{
-                y: [0, -12, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 4,
-              }}
-              className="rounded-3xl bg-white/10 backdrop-blur-xl border border-white/10 p-6"
-            >
-              <FaUsers className="text-4xl text-orange-400" />
+             <div className="absolute inset-x-0 bottom-0 h-60 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
-              <h2 className="text-white text-4xl font-black mt-5">12K+</h2>
+             {/* Content */}
 
-              <p className="text-gray-400 mt-2">Active Members</p>
-            </motion.div>
+             <div className="absolute bottom-10 left-10 right-10">
 
-            <motion.div
-              animate={{
-                y: [0, 15, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 5,
-              }}
-              className="rounded-3xl bg-white/10 backdrop-blur-xl border border-white/10 p-6"
-            >
-              <FaWallet className="text-4xl text-green-400" />
+               {/* Bottom Feature */}
 
-              <h2 className="text-white text-4xl font-black mt-5">₹4.8L</h2>
+               <div className="mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-md">
+                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary/20">
+                   <FaDumbbell className="text-xl text-primary" />
+                 </div>
 
-              <p className="text-gray-400 mt-2">Monthly Revenue</p>
-            </motion.div>
+                 <div>
+                   <h3 className="font-semibold text-white">
+                     Premium Gym Management
+                   </h3>
 
-            <motion.div
-              animate={{
-                y: [0, 10, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 4,
-              }}
-              className="rounded-3xl bg-white/10 backdrop-blur-xl border border-white/10 p-6"
-            >
-              <FaChartLine className="text-4xl text-cyan-400" />
+                   <p className="text-sm text-slate-300">
+                     Fast • Secure • Reliable
+                   </p>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </motion.div>
 
-              <h2 className="text-white text-4xl font-black mt-5">+28%</h2>
+         {/* ================= MOBILE IMAGE ================= */}
 
-              <p className="text-gray-400 mt-2">Business Growth</p>
-            </motion.div>
+         <div className="relative h-64 overflow-hidden lg:hidden">
+           <img
+             src={LOGIN_IMAGE}
+             alt="Gym"
+             className="h-full w-full object-cover"
+           />
 
-            <motion.div
-              animate={{
-                y: [0, -10, 0],
-              }}
-              transition={{
-                repeat: Infinity,
-                duration: 6,
-              }}
-              className="rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 p-6"
-            >
-              <FaDumbbell className="text-4xl text-white" />
+           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
+         </div>
 
-              <h2 className="text-white text-4xl font-black mt-5">250+</h2>
+         {/* ================= RIGHT ================= */}
 
-              <p className="text-orange-100 mt-2">Partner Gyms</p>
-            </motion.div>
-          </div>
-        </motion.div>
+         {/* ================= MOBILE HERO ================= */}
 
-        {/* RIGHT SIDE START */}
+         <div className="relative h-64 lg:hidden">
+           <img
+             src={LOGIN_IMAGE}
+             alt="Gym"
+             className="h-full w-full object-cover"
+           />
 
-        <motion.div
-          initial={{
-            opacity: 0,
-            x: 80,
-          }}
-          animate={{
-            opacity: 1,
-            x: 0,
-          }}
-          transition={{
-            duration: 0.8,
-            ease: "easeOut",
-          }}
-          className="w-full max-w-xl mx-auto flex justify-center"
-        >
-          <div className="relative w-full rounded-[35px] overflow-hidden border border-white/10 bg-white/10 backdrop-blur-2xl shadow-[0_30px_80px_rgba(0,0,0,.35)] p-10">
-            <div className="flex justify-center mb-8">
-              <div className="w-20 h-20 rounded-3xl bg-gradient-to-r from-orange-500 to-red-500 flex items-center justify-center shadow-2xl">
-                <FaDumbbell className="text-white text-4xl" />
-              </div>
-            </div>
+           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent" />
 
-            <h2 className="text-4xl font-black text-center text-white">
-              Welcome Back 👋
-            </h2>
+           <div className="absolute bottom-6 left-6">
+             <h2 className="text-3xl font-black text-white">Gym Pro ERP</h2>
 
-            <p className="text-center text-gray-400 mt-3 mb-10">
-              Login to your Gym Management Dashboard
-            </p>
+             <p className="mt-2 text-slate-200">Power Your Fitness Business</p>
+           </div>
+         </div>
 
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Email */}
+         {/* ================= RIGHT ================= */}
 
-              <div>
-                <label className="text-gray-300 text-sm mb-2 block">
-                  Email Address
-                </label>
+         <motion.div
+           initial={{ opacity: 0, x: 40 }}
+           animate={{ opacity: 1, x: 0 }}
+           transition={{ duration: 0.7 }}
+           className="flex items-center justify-center p-6 sm:p-10 lg:p-14"
+         >
+           <div className="w-full max-w-md">
+             {/* Logo */}
 
-                <div className="relative">
-                  <FaEnvelope className="absolute left-5 top-1/2 -translate-y-1/2 text-orange-400 text-lg" />
+             <div className="mb-8 flex justify-center">
+               <div className="flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-r from-primary to-secondary  shadow-[0_18px_45px_rgba(37,99,235,0.45)] ">
+                 <FaDumbbell className="text-4xl text-white" />
+               </div>
+             </div>
 
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-14 pr-5 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-500 outline-none focus:border-orange-500 transition"
-                  />
-                </div>
-              </div>
+             {/* Heading */}
 
-              {/* Password */}
+             <div className="text-center">
+               <h2 className="text-4xl font-black text-white">
+                 Welcome Back 👋
+               </h2>
 
-              <div>
-                <label className="text-gray-300 text-sm mb-2 block">
-                  Password
-                </label>
+               <p className="mt-3 text-slate-400">
+                 Sign in to access your dashboard.
+               </p>
+             </div>
 
-                <div className="relative">
-                  <FaLock className="absolute left-5 top-1/2 -translate-y-1/2 text-orange-400 text-lg" />
+             {/* Login Card */}
 
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-14 pr-14 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-gray-500 outline-none focus:border-orange-500 transition"
-                  />
+             <div className="mt-10 rounded-[28px] border border-white/10 bg-white/10 p-7 backdrop-blur-xl">
+               <form onSubmit={handleSubmit} className="space-y-6">
+                 {/* Email */}
 
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-orange-400"
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </button>
-                </div>
-              </div>
+                 <div>
+                   <label className="mb-2 block text-sm font-medium text-slate-300">
+                     Email Address
+                   </label>
 
-              {/* Remember */}
+                   <div className="relative">
+                     <FaEnvelope className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
 
-              <div className="flex justify-between items-center">
-                <label className="flex items-center gap-3 cursor-pointer">
-                  <input type="checkbox" className="accent-orange-500" />
+                     <input
+                       type="email"
+                       placeholder="Enter your email"
+                       value={email}
+                       onChange={(e) => setEmail(e.target.value)}
+                       className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-14 pr-5 text-white placeholder:text-slate-500 outline-none transition-all duration-300 focus:border-primary  focus:bg-white/10"
+                     />
+                   </div>
+                 </div>
 
-                  <span className="text-gray-400">Remember Me</span>
-                </label>
+                 {/* Password */}
 
-                <Link
-                  to="/forgot-password"
-                  className="text-orange-400 hover:text-orange-300"
-                >
-                  Forgot Password?
-                </Link>
-              </div>
+                 <div>
+                   <label className="mb-2 block text-sm font-medium text-slate-300">
+                     Password
+                   </label>
 
-              {/* Login Button */}
+                   <div className="relative">
+                     <FaLock className="absolute left-5 top-1/2 -translate-y-1/2 text-primary" />
 
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full py-4 rounded-2xl bg-gradient-to-r from-orange-500 to-red-500 text-white font-bold text-lg flex justify-center items-center gap-3 hover:scale-[1.02] transition duration-300 shadow-xl"
-              >
-                {loading ? (
-                  <>
-                    <div className="w-6 h-6 rounded-full border-2 border-white border-t-transparent animate-spin"></div>
-                    Logging In...
-                  </>
-                ) : (
-                  <>
-                    Login To Dashboard
-                    <FaArrowRight />
-                  </>
-                )}
-              </button>
+                     <input
+                       type={showPassword ? "text" : "password"}
+                       placeholder="Enter password"
+                       value={password}
+                       onChange={(e) => setPassword(e.target.value)}
+                       className="h-14 w-full rounded-2xl border border-white/10 bg-white/5 pl-14 pr-14 text-white placeholder:text-slate-500 outline-none transition-all duration-300 focus:border-primary focus:bg-white/10"
+                     />
 
-              {/* Register */}
+                     <button
+                       type="button"
+                       onClick={() => setShowPassword(!showPassword)}
+                       className="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 transition hover:text-primary/80"
+                     >
+                       {showPassword ? <FaEyeSlash /> : <FaEye />}
+                     </button>
+                   </div>
+                 </div>
 
-              <p className="text-center text-gray-400 mt-8">
-                Don't have an account?
-                <Link
-                  to="/register"
-                  className="ml-2 text-orange-400 font-semibold hover:text-orange-300"
-                >
-                  Create Account
-                </Link>
-              </p>
-            </form>
-          </div>
-        </motion.div>
-      </div>
+                 {/* Remember */}
 
-      {/* Floating Decorative Elements */}
+                 <div className="flex items-center justify-between text-sm">
+                   <label className="flex cursor-pointer items-center gap-3 text-slate-400">
+                     <input type="checkbox" className="accent-primary" />
+                     Remember Me
+                   </label>
 
-      <motion.div
-        animate={{
-          y: [0, -20, 0],
-          rotate: [0, 10, 0],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 6,
-        }}
-        className="hidden lg:flex absolute top-20 right-20 w-24 h-24 rounded-3xl bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-xl border border-white/10"
-      />
+                   <Link
+                     to="/forgot-password"
+                     className="font-medium text-primary hover:text-primary/80"
+                   >
+                     Forgot Password?
+                   </Link>
+                 </div>
 
-      <motion.div
-        animate={{
-          y: [0, 20, 0],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 5,
-        }}
-        className="hidden lg:flex absolute bottom-24 left-24 w-20 h-20 rounded-full bg-orange-500/20 blur-md"
-      />
+                 {/* Login */}
 
-      <motion.div
-        animate={{
-          scale: [1, 1.2, 1],
-        }}
-        transition={{
-          repeat: Infinity,
-          duration: 4,
-        }}
-        className="hidden lg:flex absolute top-1/2 right-12 w-6 h-6 rounded-full bg-orange-400"
-      />
+                 <button
+                   type="submit"
+                   disabled={loading}
+                   className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-primaryDark text-lg font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(37,99,235,0.45)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
+                 >
+                   {loading ? (
+                     <>
+                       <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
+                       Logging In...
+                     </>
+                   ) : (
+                     <>
+                       Login To Dashboard
+                       <FaArrowRight />
+                     </>
+                   )}
+                 </button>
 
-      {/* Toast */}
+                 {/* Register */}
 
-      <ToastContainer
-        position="top-right"
-        autoClose={2500}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        pauseOnHover
-        draggable
-        theme="dark"
-      />
-    </div>
-  );
+                 <p className="pt-3 text-center text-slate-400">
+                   Don't have an account?
+                   <Link
+                     to="/register"
+                     className="ml-2 font-semibold text-primary hover:text-primary/80"
+                   >
+                     Create Account
+                   </Link>
+                 </p>
+               </form>
+             </div>
+           </div>
+         </motion.div>
+       </div>
+     </div>
+
+     {/* Floating Elements */}
+
+     <motion.div
+       animate={{
+         y: [0, -18, 0],
+       }}
+       transition={{
+         repeat: Infinity,
+         duration: 5,
+       }}
+       className="hidden lg:block absolute top-20 right-20 h-20 w-20 rounded-full bg-orange-500/10 blur-xl"
+     />
+
+     <motion.div
+       animate={{
+         y: [0, 18, 0],
+       }}
+       transition={{
+         repeat: Infinity,
+         duration: 6,
+       }}
+       className="hidden lg:block absolute bottom-24 left-16 h-24 w-24 rounded-full bg-red-500/10 blur-xl"
+     />
+
+     <motion.div
+       animate={{
+         scale: [1, 1.15, 1],
+       }}
+       transition={{
+         repeat: Infinity,
+         duration: 4,
+       }}
+       className="hidden lg:block absolute top-1/2 right-10 h-4 w-4 rounded-full bg-primary"
+     />
+
+     {/* Toast */}
+
+     <ToastContainer
+       position="top-right"
+       autoClose={2500}
+       hideProgressBar={false}
+       newestOnTop
+       closeOnClick
+       pauseOnHover
+       draggable
+       theme="dark"
+     />
+   </div>
+ );
 }

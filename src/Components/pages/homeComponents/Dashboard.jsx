@@ -189,48 +189,6 @@ export default function Dashboard() {
               </div>
             </div>
           </div>
-
-          {/* Floating Card */}
-
-          <motion.div
-            animate={{
-              y: [0, -10, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-            }}
-            className="absolute -left-6 top-10 hidden lg:block"
-          >
-            <div className="rounded-card border border-border bg-card p-5 shadow-card">
-              <p className="text-small text-text">New Members</p>
-
-              <h3 className="mt-2 text-h2 font-black text-heading">+42</h3>
-
-              <span className="mt-2 inline-flex rounded-full bg-success/10 px-3 py-1 text-small font-semibold text-success">
-                This Week
-              </span>
-            </div>
-          </motion.div>
-
-          {/* Floating Revenue */}
-
-          <motion.div
-            animate={{
-              y: [0, 10, 0],
-            }}
-            transition={{
-              duration: 4,
-              repeat: Infinity,
-            }}
-            className="absolute -right-6 bottom-10 hidden lg:block"
-          >
-            <div className="rounded-card bg-primary p-6 text-white shadow-button">
-              <p className="text-small text-white/80">Today's Revenue</p>
-
-              <h3 className="mt-2 text-h2 font-black">₹18K</h3>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
     </section>

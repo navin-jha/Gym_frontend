@@ -14,16 +14,6 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen overflow-hidden bg-secondary">
-      {/* Background */}
-
-      <div className="absolute inset-0">
-        <img src={backgroundImage} alt="Gym" className="img-cover opacity-15" />
-
-        <div className="absolute inset-0 bg-secondary/90" />
-
-        <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/90 to-secondary/70" />
-      </div>
-
       <div className="content relative z-10">
         <div className="grid min-h-screen items-center gap-20 pt-32 pb-20 lg:grid-cols-2">
           {/* LEFT */}
@@ -116,92 +106,64 @@ export default function Hero() {
             </div>
           </motion.div>
 
-          {/* RIGHT */}
+          {/* ================= RIGHT ================= */}
+
           <motion.div
-            initial={{
-              opacity: 0,
-              x: 50,
-            }}
-            animate={{
-              opacity: 1,
-              x: 0,
-            }}
-            transition={{
-              duration: 0.8,
-            }}
-            className="relative"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            className="relative flex items-center justify-center"
           >
-            <div className="relative mx-auto max-w-xl">
-              {/* Hero Image */}
+            <div className="relative mx-auto w-full max-w-[560px]">
+              {/* Image Card */}
 
-              <img
-                src={backgroundImage}
-                alt="Gym Management"
-                className="w-full rounded-card border border-white/10 object-cover shadow-2xl"
-              />
+              <div className="overflow-hidden rounded-[30px] border border-white/10 bg-white/5 p-3 shadow-[0_25px_80px_rgba(0,0,0,.45)] backdrop-blur-xl">
+                <img
+                  src={backgroundImage}
+                  alt="Gym ERP"
+                  className="h-[650px] w-full rounded-[22px] object-cover transition-transform duration-700 hover:scale-[1.03]"
+                />
+              </div>
 
-              {/* Top Card */}
+              {/* Floating Card */}
 
               <motion.div
-                animate={{
-                  y: [0, -8, 0],
-                }}
+                animate={{ y: [0, -8, 0] }}
                 transition={{
                   duration: 4,
                   repeat: Infinity,
                 }}
-                className="absolute -left-8 top-8 hidden lg:block"
+                className="absolute bottom-8 left-8 hidden lg:block"
               >
-                <div className="rounded-card border border-white/10 bg-white/10 p-5 backdrop-blur-xl">
-                  <p className="text-small text-white/70">Active Members</p>
+                <div className="rounded-2xl border border-white/10 bg-[#111827]/80 px-6 py-5 backdrop-blur-xl shadow-xl">
+                  <p className="text-xs font-semibold uppercase tracking-[3px] text-primary">
+                    Gym Pro ERP
+                  </p>
 
-                  <h3 className="mt-2 text-h2 font-black text-white">
-                    10,000+
+                  <h3 className="mt-2 text-xl font-bold text-white">
+                    All-In-One Dashboard
                   </h3>
+
+                  <p className="mt-2 text-sm leading-6 text-slate-300">
+                    Members • Attendance • Trainers • Payments
+                  </p>
                 </div>
               </motion.div>
 
-              {/* Bottom Card */}
+              {/* Floating Badge */}
 
               <motion.div
-                animate={{
-                  y: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                }}
-                className="absolute -right-8 bottom-10 hidden lg:block"
-              >
-                <div className="rounded-card border border-white/10 bg-white/10 p-5 backdrop-blur-xl">
-                  <p className="text-small text-white/70">Customer Rating</p>
-
-                  <h3 className="mt-2 text-h2 font-black text-white">
-                    ⭐ 4.9/5
-                  </h3>
-                </div>
-              </motion.div>
-
-              {/* Center Card */}
-
-              <motion.div
-                animate={{
-                  y: [0, -6, 0],
-                }}
+                animate={{ scale: [1, 1.05, 1] }}
                 transition={{
                   duration: 3,
                   repeat: Infinity,
                 }}
-                className="absolute bottom-6 left-6 hidden lg:block"
+                className="absolute right-6 top-6 hidden lg:flex"
               >
-                <div className="rounded-card border border-white/10 bg-secondary/80 px-6 py-4 backdrop-blur-xl">
-                  <p className="text-small uppercase tracking-[2px] text-primary">
-                    All In One
-                  </p>
-
-                  <h4 className="mt-1 font-bold text-white">
-                    Gym ERP Solution
-                  </h4>
+                <div className="rounded-full border border-primary/30 bg-primary/15 px-5 py-3 backdrop-blur-xl">
+                  <span className="font-semibold text-primary">
+                    Trusted by 500+ Gyms
+                  </span>
                 </div>
               </motion.div>
             </div>
