@@ -1,17 +1,35 @@
-import { StrictMode } from 'react';
-import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import './index.css';
-import ProtectedRoute from './routes/ProtectedRoute';
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import App from './App';
-import Home from './Components/pages/Home';
-import Login from './Components/pages/Login';
-import Register from './Components/pages/Register';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-import MainDashboard from './Components/pages/MainDashboard'
-// Modules
-import Plans from './Components/Dashboard_Components/Register/Plans';
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import "./index.css";
+
+import ProtectedRoute from "./routes/ProtectedRoute";
+
+import App from "./App";
+import Home from "./Components/pages/Home";
+import Login from "./Components/pages/Login";
+import Register from "./Components/pages/Register";
+import MainDashboard from "./Components/pages/MainDashboard";
+import Plans from "./Components/Dashboard_Components/Register/Plans";
+
+// Create Query Client
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: 1,
+      staleTime: 1000 * 60 * 5, // 5 Minutes
+      refetchOnWindowFocus: false,
+    },
+    mutations: {
+      retry: 1,
+    },
+  },
+});
 
 const router = createBrowserRouter([
   {
@@ -21,6 +39,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "register", element: <Register /> },
+
       {
         path: "plans",
         element: (
@@ -29,6 +48,7 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
+
       {
         path: "dashboard",
         element: (
@@ -41,8 +61,12 @@ const router = createBrowserRouter([
   },
 ]);
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </StrictMode>,
 );

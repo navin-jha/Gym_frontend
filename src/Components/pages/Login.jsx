@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../services/axiosConfig";
+import { useLogin } from "../../hooks/useLogin";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -28,7 +29,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const loginMutation = useLogin();
 
   useEffect(() => {
     if (sessionStorage.getItem("userLoggedIn")) {
@@ -40,7 +41,7 @@ export default function Login() {
     }
   }, [navigate]);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!email || !password) {
@@ -48,34 +49,31 @@ export default function Login() {
       return;
     }
 
-    try {
-      setLoading(true);
-
-      const res = await api.post("/auth/login", {
+    loginMutation.mutate(
+      {
         email,
         password,
-      });
+      },
+      {
+        onSuccess: (data) => {
+          sessionStorage.setItem("token", data.token);
+          sessionStorage.setItem("email", data.email);
+          sessionStorage.setItem("name", data.name);
+          sessionStorage.setItem("role", data.role);
+          sessionStorage.setItem("userLoggedIn", "true");
 
-      if (res.data.success) {
-        sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("email", res.data.email);
-        sessionStorage.setItem("name", res.data.name);
-        sessionStorage.setItem("role", res.data.role);
-        sessionStorage.setItem("userLoggedIn", "true");
+          toast.success("Login Successful");
 
-        toast.success("Login Successful");
+          setTimeout(() => {
+            navigate("/dashboard");
+          }, 700);
+        },
 
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 700);
-      } else {
-        toast.error("Invalid Credentials");
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Login Failed");
-    } finally {
-      setLoading(false);
-    }
+        onError: (error) => {
+          toast.error(error.response?.data?.message || "Login Failed");
+        },
+      },
+    );
   };
 
  return (
@@ -118,7 +116,6 @@ export default function Login() {
              {/* Content */}
 
              <div className="absolute bottom-10 left-10 right-10">
-
                {/* Bottom Feature */}
 
                <div className="mt-8 flex items-center gap-4 rounded-2xl border border-white/10 bg-white/10 px-5 py-4 backdrop-blur-md">
@@ -273,10 +270,10 @@ export default function Login() {
 
                  <button
                    type="submit"
-                   disabled={loading}
+                   disabled={loginMutation.isPending}
                    className="flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-primary via-blue-500 to-primaryDark text-lg font-bold text-white shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_45px_rgba(37,99,235,0.45)] active:scale-[0.98] disabled:cursor-not-allowed disabled:opacity-70"
                  >
-                   {loading ? (
+                   {loginMutation.isPending ? (
                      <>
                        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent"></div>
                        Logging In...

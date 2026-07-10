@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from "react";
 import api from "../../services/axiosConfig";
+import { useRegister } from "../../hooks/useRegister";
+
 import { useNavigate, Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
 
 import { motion } from "framer-motion";
 
@@ -39,9 +42,9 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [role, setRole] = useState("");
-  const [loading, setLoading] = useState(false);
+  const registerMutation = useRegister();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     if (!name || !email || !password || !confirmPassword || !role) {
@@ -54,31 +57,32 @@ function Register() {
       return;
     }
 
-    try {
-      setLoading(true);
-
-      const res = await api.post("/auth/register", {
+    registerMutation.mutate(
+      {
         name,
         email,
         password,
         role,
-      });
+      },
+      {
+        onSuccess: (data) => {
+          if (data.success) {
+            sessionStorage.setItem("token", data.token);
+            sessionStorage.setItem("role", data.role);
 
-      if (res.data.success) {
-        sessionStorage.setItem("token", res.data.token);
-        sessionStorage.setItem("role", res.data.role);
+            toast.success("Registration Successful!");
 
-        toast.success("Registration Successful!");
+            setTimeout(() => {
+              navigate("/dashboard");
+            }, 1000);
+          }
+        },
 
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 1000);
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Something went wrong!");
-    } finally {
-      setLoading(false);
-    }
+        onError: (error) => {
+          toast.error(error.response?.data?.message || "Something went wrong!");
+        },
+      },
+    );
   };
 
   return (
@@ -327,10 +331,10 @@ function Register() {
 
                     <button
                       type="submit"
-                      disabled={loading}
+                      disabled={registerMutation.isPending}
                       className="mt-3 flex h-14 w-full items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-primary to-primaryDark text-lg font-bold text-white transition-all duration-300 hover:scale-[1.02] hover:shadow-[0_15px_40px_rgba(37,99,235,.35)] disabled:cursor-not-allowed disabled:opacity-70"
                     >
-                      {loading ? (
+                      {registerMutation.isPending ? (
                         "Creating Account..."
                       ) : (
                         <>
